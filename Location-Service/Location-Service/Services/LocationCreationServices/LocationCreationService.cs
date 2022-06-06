@@ -17,7 +17,7 @@ public class LocationCreationService : ILocationCreationService
     
     public CreateLocationResponse Create(CreateLocationRequest request)
     {
-        var hash = _geoHasher.Encode(request.Latitude, request.Longitude, 9);
+        var hash = _geoHasher.Encode(request.Latitude, request.Longitude, 7);
 
         if (hash == null)
         {
