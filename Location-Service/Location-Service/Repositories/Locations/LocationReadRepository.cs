@@ -1,4 +1,5 @@
 using Location_Service.DataAccesses.Locations;
+using Location_Service.Repositories.Locations.Contracts;
 
 namespace Location_Service.Repositories.Locations;
 
@@ -34,7 +35,6 @@ public class LocationReadRepository : ILocationReadRepository
         
         return new Location
         {
-            Hash = record.Hash,
             Id = record.Id,
             Latitude = record.Latitude,
             Longitude = record.Longitude,

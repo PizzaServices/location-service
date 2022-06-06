@@ -8,5 +8,5 @@ public interface ILocationDataAccess
     
     
     // Write
-    public LocationRecord Create(string hash, double latitude, double longitude);
+    public LocationRecord Create(double latitude, double longitude);
 }

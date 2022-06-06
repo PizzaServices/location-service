@@ -1,4 +1,4 @@
-namespace Location_Service.Repositories.Locations;
+namespace Location_Service.Repositories.Locations.Contracts;
 
 public interface ILocationReadRepository
 {

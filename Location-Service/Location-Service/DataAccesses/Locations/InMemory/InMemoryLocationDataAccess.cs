@@ -1,16 +1,20 @@
 using System.Collections.Concurrent;
 using Location_Service.Containers;
+using Location_Service.Services.GeoHashers;
 
 namespace Location_Service.DataAccesses.Locations.InMemory;
 
 public class LocationDataAccess : ILocationDataAccess
 {
-    private readonly ISearchTree<Guid, LocationRecord> _locationRecords;
+    private readonly IGeoHasher _geoHasher;
+    
+    private readonly ISearchTree<Guid, InMemoryLocationRecord> _locationRecords;
     private readonly ISearchTree<string, ConcurrentBag<Guid>> _hashBucket;
 
-    public LocationDataAccess()
+    public LocationDataAccess(IGeoHasher geoHasher)
     {
-        _locationRecords = new BinarySearchTree<Guid, LocationRecord>();
+        _geoHasher = geoHasher;
+        _locationRecords = new BinarySearchTree<Guid, InMemoryLocationRecord>();
         _hashBucket = new BinarySearchTree<string, ConcurrentBag<Guid>>();
     }
 
@@ -48,11 +52,13 @@ public class LocationDataAccess : ILocationDataAccess
     }
 
     // Write
-    public LocationRecord Create(string hash, double latitude, double longitude)
+    public LocationRecord Create(double latitude, double longitude)
     {
-        var record = new LocationRecord
+        string? geoHash = _geoHasher.Encode(latitude, longitude);
+        
+        var record = new InMemoryLocationRecord
         {
-            Hash = hash,
+            Hash = geoHash!,
             Id = Guid.NewGuid(),
             Latitude = latitude,
             Longitude = longitude,

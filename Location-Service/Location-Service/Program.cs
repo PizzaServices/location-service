@@ -1,4 +1,5 @@
 using Location_Service.Extensions;
+using Location_Service.Middleware;
 
 namespace Location_Service;
 
@@ -7,7 +8,8 @@ public static class Program
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        
+        
         // Add services to the container.
         builder.Services.AddServices();
 
@@ -18,6 +20,8 @@ public static class Program
 
         var app = builder.Build();
 
+        app.UseMiddleware<RequestTimeLoggingMiddleware>();
+        
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {

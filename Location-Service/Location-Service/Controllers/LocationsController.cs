@@ -1,8 +1,7 @@
 using Geohash;
 using Location_Service.Models.Locations;
 using Location_Service.Models.Locations.Create;
-using Location_Service.Repositories.Locations;
-using Location_Service.Services.LocationCreationServices;
+using Location_Service.Repositories.Locations.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Location_Service.Controllers;
@@ -12,13 +11,13 @@ namespace Location_Service.Controllers;
 public class LocationsController : ControllerBase
 {
     private readonly ILocationReadRepository _locationReadRepository;
-    private readonly ILocationCreationService _locationCreationService;
+    private readonly ILocationWriteRepository _locationWriteRepository;
 
     public LocationsController(ILocationReadRepository locationReadRepository,
-                               ILocationCreationService locationCreationService)
+                               ILocationWriteRepository locationWriteRepository)
     {
         _locationReadRepository = locationReadRepository;
-        _locationCreationService = locationCreationService;
+        _locationWriteRepository = locationWriteRepository;
     }
     
     [HttpGet("{id:guid}")]
@@ -54,7 +53,7 @@ public class LocationsController : ControllerBase
     [HttpPut]
     public IActionResult Create([FromBody] CreateLocationRequestModel requestModel)
     {
-        var result = _locationCreationService.Create(new CreateLocationRequest
+        var response = _locationWriteRepository.Create(new CreateLocationRequest
         {
             Latitude = requestModel.Latitude,
             Longitude = requestModel.Longitude,
@@ -62,16 +61,16 @@ public class LocationsController : ControllerBase
 
         LocationModel? model = null;
 
-        if (result.Entity != null)
+        if (response.Model != null)
         {
-            model = ConvertEntityToModel(result.Entity);
+            model = ConvertEntityToModel(response.Model);
         }
 
         return new JsonResult(new CreateLocationResponseModel
         {
             Model = model,
-            Successful = result.Successful,
-            ErrorMessages = result.ErrorMessages,
+            Successful = response.Successful,
+            ErrorMessages = response.ErrorMessages,
         });
     }
 

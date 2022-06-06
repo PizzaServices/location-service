@@ -1,27 +1,33 @@
 using Geohash;
 using Location_Service.DataAccesses.Locations;
+using Location_Service.Repositories.Locations.Contracts;
+using Location_Service.Repositories.Locations.Validations;
 
 namespace Location_Service.Repositories.Locations;
 
 public class LocationWriteRepository : ILocationWriteRepository
 {
     private readonly ILocationDataAccess _dataAccess;
+    private readonly ILocationValidator _locationValidator;
 
-    public LocationWriteRepository(ILocationDataAccess dataAccess)
+    public LocationWriteRepository(ILocationDataAccess dataAccess,
+                                   ILocationValidator locationValidator)
     {
         _dataAccess = dataAccess;
+        _locationValidator = locationValidator;
     }
     
-    public Location Create(string hash, double latitude, double longitude)
+    public CreateLocationResponse Create(CreateLocationRequest request)
     {
-        var record = _dataAccess.Create(hash, latitude, longitude);
+        var record = _dataAccess.Create(request.Latitude, request.Longitude);
 
-        return new Location
-        {
-            Id = record.Id,
-            Hash = hash,
-            Latitude = latitude,
-            Longitude = longitude,
-        };
+        // return new Location
+        // {
+        //     Id = record.Id,
+        //     Latitude = request.Latitude,
+        //     Longitude = request.Longitude,
+        // };
+
+        return null;
     }
 }
