@@ -1,23 +1,22 @@
+using Location_Service.Containers;
+
 namespace Location_Service.DataAccesses.Locations.InMemory;
 
 public class LocationDataAccess : ILocationDataAccess
 {
-    private readonly IList<LocationRecord> _locationRecords;
+    private readonly ISearchTree<Guid, LocationRecord> _locationRecords;
+    private readonly ISearchTree<string, List<Guid>> _hashBucket;
 
     public LocationDataAccess()
     {
-        _locationRecords = new List<LocationRecord>();
+        _locationRecords = new BinarySearchTree<Guid, LocationRecord>();
+        _hashBucket = new BinarySearchTree<string, List<Guid>>();
     }
     
     // Read
-    public LocationRecord? GetByHash(string hash)
-    {
-        return _locationRecords.FirstOrDefault(record => record.Hash == hash);
-    }
-
     public LocationRecord? GetById(Guid id)
     {
-        return _locationRecords.FirstOrDefault(record => record.Id == id);
+        return _locationRecords.Get(id);
     }
 
     public List<LocationRecord> GetByRadius(double lat, double lon, int meters)
@@ -28,8 +27,8 @@ public class LocationDataAccess : ILocationDataAccess
                                                                           9);
 
         return hashes
-            .Select(geoHash => _locationRecords
-                .FirstOrDefault(record => record.Hash == geoHash))
+            .SelectMany(geoHash => _hashBucket.Get(geoHash) ?? new List<Guid>())
+            .Select(id => _locationRecords.Get(id))
             .Where(record => record != null)
             .ToList()!;
     }
@@ -45,7 +44,12 @@ public class LocationDataAccess : ILocationDataAccess
             Longitude = longitude,
         };
         
-        _locationRecords.Add(record);
+        _locationRecords.Insert(record.Id, record);
+        
+        if(_hashBucket.Contains(record.Hash))
+            _hashBucket.Get(record.Hash)!.Add(record.Id);
+        else
+            _hashBucket.Insert(record.Hash, new List<Guid>{ record.Id });
 
         return record;
     }

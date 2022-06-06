@@ -1,0 +1,18 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/home/frontend/.cache/JetBrains/Rider2022.1/resharper-host/temp/Rider/vAny/CoverageData/_Location-Service.-1162541787/Snapshot/snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=219d8241_002D8e21_002D4702_002D8b51_002D9a1d4913b73f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestInsert" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Or&gt;
+    &lt;Not&gt;
+      &lt;And&gt;
+        &lt;TestAncestor&gt;
+          &lt;TestId&gt;NUnit3x::A6A3D499-FABB-4389-AADC-3893DF514522::net6.0::Location_Service_Tests.Containers.BinarySearchTreeTest.ShouldDeleteKeyWithLeftChild&lt;/TestId&gt;
+        &lt;/TestAncestor&gt;
+        &lt;Project Location="/home/frontend/Desktop/Repo/location-service/Location-Service/Location-Service-Tests" Presentation="&amp;lt;Location-Service-Tests&amp;gt;" /&gt;
+        &lt;Namespace&gt;Location_Service_Tests.Containers&lt;/Namespace&gt;
+      &lt;/And&gt;
+    &lt;/Not&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;NUnit3x::A6A3D499-FABB-4389-AADC-3893DF514522::net6.0::Location_Service_Tests.Containers.BinarySearchTreeTest.ShouldDeleteKeyWithLeftChild&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+  &lt;/Or&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

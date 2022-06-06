@@ -10,14 +10,7 @@ public class LocationReadRepository : ILocationReadRepository
     {
         _dataAccess = dataAccess;
     }
-
-    public Location? Get(string hash)
-    {
-        var record = _dataAccess.GetByHash(hash);
-
-        return ConvertRecord(record);
-    }
-
+    
     public Location? Get(Guid id)
     {
         var record = _dataAccess.GetById(id);
