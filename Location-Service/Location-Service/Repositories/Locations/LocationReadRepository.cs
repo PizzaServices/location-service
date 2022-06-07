@@ -24,7 +24,6 @@ public class LocationReadRepository : ILocationReadRepository
         return _dataAccess
                 .GetByRadius(lat, lon, meters)
                 .Select(ConvertRecord)
-                .Where(record => record != null)
                 .ToList()!;
     }
 

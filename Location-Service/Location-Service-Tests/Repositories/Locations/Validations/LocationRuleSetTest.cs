@@ -1,6 +1,6 @@
 using Location_Service.Repositories.Locations.Validations;
 
-namespace Location_Service_Tests.Validations.Locations;
+namespace Location_Service_Tests.Repositories.Locations.Validations;
 
 public class LocationRuleSetTest
 {

@@ -20,13 +20,12 @@ public static class Program
 
         var app = builder.Build();
 
-        app.UseMiddleware<RequestTimeLoggingMiddleware>();
-        
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseMiddleware<RequestTimeLoggingMiddleware>();
         }
 
         app.UseHttpsRedirection();

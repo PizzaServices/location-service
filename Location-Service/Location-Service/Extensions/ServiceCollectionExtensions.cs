@@ -13,7 +13,7 @@ public static class ServiceCollectionExtension
     public static void AddServices(this IServiceCollection serviceCollection)
     {
         // Singleton
-        serviceCollection.AddSingleton<ILocationDataAccess, LocationDataAccess>();
+        serviceCollection.AddSingleton<ILocationDataAccess, InMemoryLocationDataAccess>();
         
         // Scoped
         serviceCollection.AddScoped<ILocationReadRepository, LocationReadRepository>();

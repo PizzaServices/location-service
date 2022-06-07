@@ -4,14 +4,14 @@ using Location_Service.Services.GeoHashers;
 
 namespace Location_Service.DataAccesses.Locations.InMemory;
 
-public class LocationDataAccess : ILocationDataAccess
+public class InMemoryLocationDataAccess : ILocationDataAccess
 {
     private readonly IGeoHasher _geoHasher;
     
     private readonly ISearchTree<Guid, InMemoryLocationRecord> _locationRecords;
     private readonly ISearchTree<string, ConcurrentBag<Guid>> _hashBucket;
 
-    public LocationDataAccess(IGeoHasher geoHasher)
+    public InMemoryLocationDataAccess(IGeoHasher geoHasher)
     {
         _geoHasher = geoHasher;
         _locationRecords = new BinarySearchTree<Guid, InMemoryLocationRecord>();
@@ -55,6 +55,8 @@ public class LocationDataAccess : ILocationDataAccess
     public LocationRecord Create(double latitude, double longitude)
     {
         string? geoHash = _geoHasher.Encode(latitude, longitude);
+        
+        // todo handle if geoHash is null.
         
         var record = new InMemoryLocationRecord
         {
