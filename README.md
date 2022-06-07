@@ -41,8 +41,7 @@ For the in memory implementation I chose an approach via GeoHash. With the help 
 License:
 --------
 
-The code is orginally from Ashwin Nair, I just made some changes to it to make the setup smoother and added
-testing functionality with a better setup.
+The code is orginally from Ashwin Nair, and Alexander Mueller 
 
 Licensed under the Apache License, Version 2.0. 
 
