@@ -1,6 +1,7 @@
 using Location_Service.Models.Locations;
 using Location_Service.Models.Locations.Create;
 using Location_Service.Repositories.Locations.Contracts;
+using Location_Service.Security.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Location_Service.Controllers;
@@ -49,6 +50,7 @@ public class LocationsController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize]
     public IActionResult Create([FromBody] CreateLocationRequestModel requestModel)
     {
         var response = _locationWriteRepository.Create(new CreateLocationRequest

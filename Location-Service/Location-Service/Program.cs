@@ -5,13 +5,18 @@ namespace Location_Service;
 
 public static class Program
 {
+    private const string JWT_ARGUMENT = "--jwt";
+    
     public static async Task Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        bool isJwtEnabled = args.Contains(JWT_ARGUMENT);
         
+        var builder = WebApplication.CreateBuilder(args);
         
         // Add services to the container.
         builder.Services.AddServices();
+        builder.Services.AddJwtServices();
+        builder.Services.AddHttpContextAccessor();
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -28,6 +33,8 @@ public static class Program
             app.UseMiddleware<RequestTimeLoggingMiddleware>();
         }
 
+        app.UseMiddleware<JwtMiddleware>();
+        
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
