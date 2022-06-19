@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AspNetCoreRateLimit" Version="4.0.2" />
         <PackageReference Include="geohash-dotnet" Version="1.0.4" />
         <PackageReference Include="JWT" Version="9.0.3" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />

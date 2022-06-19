@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using Location_Service.Extensions;
 using Location_Service.Middleware;
 
@@ -12,6 +13,13 @@ public static class Program
         bool isJwtEnabled = args.Contains(JWT_ARGUMENT);
         
         var builder = WebApplication.CreateBuilder(args);
+        
+        // Rate limiting
+        builder.Services.AddOptions();
+        builder.Services.AddMemoryCache();
+        builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+        builder.Services.AddInMemoryRateLimiting();
+        builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
         
         // Add services to the container.
         builder.Services.AddServices();
@@ -34,11 +42,11 @@ public static class Program
         }
 
         app.UseMiddleware<JwtMiddleware>();
+
+        app.UseIpRateLimiting();
         
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
-
         app.MapControllers();
 
         await app.RunAsync();
