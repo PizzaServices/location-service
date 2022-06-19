@@ -31,7 +31,7 @@ For the in memory implementation I chose an approach via GeoHash. With the help 
 - [ ] Implement MongoDb support
 - [ ] Implement PostgreSQL support
 - [ ] Implement authentication support
-- [ ] Implement rate limiting
+- [x] Implement rate limiting
 - [ ] Implement caching
 - [ ] Implement sharding for InMemory
 - [ ] Implement own persistant storage
